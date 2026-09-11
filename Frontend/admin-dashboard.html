@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Campus Canteen</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🍔 Campus Canteen - Admin
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="menu.html">
+                Menu
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Dashboard -->
+
+    <section class="menu-page">
+
+        <h1>Admin Dashboard 📊</h1>
+
+        <p class="menu-subtitle">
+            Manage Campus Canteen Orders
+        </p>
+
+
+        <div id="ordersContainer">
+
+            <p>
+                Loading orders...
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        // ================= LOAD ORDERS =================
+
+        async function loadOrders() {
+
+            const container =
+                document.getElementById(
+                    "ordersContainer"
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "http://localhost:3000/api/orders"
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Failed to fetch orders"
+                    );
+
+                }
+
+
+                const orders =
+                    await response.json();
+
+
+                // No orders
+                if (orders.length === 0) {
+
+                    container.innerHTML =
+                        "<p>No orders found.</p>";
+
+                    return;
+
+                }
+
+
+                container.innerHTML = "";
+
+
+                // Display every order
+                orders.forEach(
+                    function(order) {
+
+                        const orderCard =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        orderCard.className =
+                            "food-card";
+
+
+                        orderCard.innerHTML = `
+
+                            <h3>
+                                Order #${order.queueNumber}
+                            </h3>
+
+                            <p>
+                                Order ID:
+                                ${order._id}
+                            </p>
+
+                            <p>
+                                Total:
+                                ₹${order.totalAmount}
+                            </p>
+
+                            <p>
+                                Current Status:
+                                <strong>
+                                    ${order.status}
+                                </strong>
+                            </p>
+
+
+                            <label>
+                                Update Status:
+                            </label>
+
+
+                            <select
+                                onchange="updateStatus(
+                                    '${order._id}',
+                                    this.value
+                                )">
+
+                                <option value="Waiting"
+                                    ${order.status === "Waiting"
+                                        ? "selected"
+                                        : ""}>
+                                    Waiting
+                                </option>
+
+                                <option value="Preparing"
+                                    ${order.status === "Preparing"
+                                        ? "selected"
+                                        : ""}>
+                                    Preparing
+                                </option>
+
+                                <option value="Ready"
+                                    ${order.status === "Ready"
+                                        ? "selected"
+                                        : ""}>
+                                    Ready
+                                </option>
+
+                                <option value="Completed"
+                                    ${order.status === "Completed"
+                                        ? "selected"
+                                        : ""}>
+                                    Completed
+                                </option>
+
+                            </select>
+
+                            <hr>
+
+                        `;
+
+
+                        container.appendChild(
+                            orderCard
+                        );
+
+                    }
+                );
+
+
+            } catch (error) {
+
+                console.log(error);
+
+
+                container.innerHTML = `
+
+                    <p>
+                        Could not load orders.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        // ================= UPDATE STATUS =================
+
+        async function updateStatus(
+            orderId,
+            newStatus
+        ) {
+
+            try {
+
+                const response =
+                    await fetch(
+
+                        "http://localhost:3000/api/orders/"
+                        + orderId
+                        + "/status",
+
+                        {
+
+                            method: "PUT",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    status:
+                                        newStatus
+
+                                })
+
+                        }
+
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Failed to update status"
+                    );
+
+                }
+
+
+                const order =
+                    await response.json();
+
+
+                alert(
+                    "Order #" +
+                    order.queueNumber +
+                    " updated to " +
+                    order.status
+                );
+
+
+                // Reload orders
+                loadOrders();
+
+
+            } catch (error) {
+
+                console.log(error);
+
+                alert(
+                    "Could not update order status."
+                );
+
+            }
+
+        }
+
+
+        // Load orders when page opens
+        loadOrders();
+
+    </script>
+
+</body>
+
+</html>

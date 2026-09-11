@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cart - Campus Canteen</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🍔 Campus Canteen
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="menu.html">
+                Menu
+            </a>
+
+            <a href="cart.html">
+                Cart 🛒
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Cart -->
+
+    <section class="menu-page">
+
+        <h1>Your Cart 🛒</h1>
+
+        <p class="menu-subtitle">
+            Review your order before placing it
+        </p>
+
+
+        <!-- Cart Items -->
+
+        <div id="cartItems">
+
+            <p>
+                Loading cart...
+            </p>
+
+        </div>
+
+
+        <!-- Total -->
+
+        <h2 id="total"></h2>
+
+
+        <!-- Buttons -->
+
+        <div class="cart-button">
+
+            <button
+                class="primary-btn"
+                onclick="placeOrder()">
+
+                Place Order 🍔
+
+            </button>
+
+
+            <button
+                class="primary-btn"
+                onclick="window.location.href='menu.html'">
+
+                Add More Food
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

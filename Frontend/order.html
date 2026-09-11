@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Order Tracking - Campus Canteen</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🍔 Campus Canteen
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="menu.html">
+                Menu
+            </a>
+
+            <a href="cart.html">
+                Cart 🛒
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Order Tracking -->
+
+    <section class="menu-page">
+
+        <h1>Order Confirmed! 🎉</h1>
+
+
+        <p>
+            Your Queue Number
+        </p>
+
+
+        <h2 id="queueNumber">
+            Loading...
+        </h2>
+
+
+        <p>
+            Order Status
+        </p>
+
+
+        <h2 id="orderStatus">
+            Loading...
+        </h2>
+
+
+        <p id="orderMessage">
+            Fetching your order details...
+        </p>
+
+
+        <button
+            class="primary-btn"
+            onclick="window.location.href='menu.html'">
+
+            Order More Food 🍔
+
+        </button>
+
+
+        <button
+            class="primary-btn"
+            onclick="loadOrder()">
+
+            Refresh Status 🔄
+
+        </button>
+
+
+    </section>
+
+
+    <script>
+
+        // ================= GET ORDER ID =================
+
+        const orderId =
+            localStorage.getItem("orderId");
+
+
+        // ================= LOAD ORDER =================
+
+        async function loadOrder() {
+
+            const queueElement =
+                document.getElementById(
+                    "queueNumber"
+                );
+
+
+            const statusElement =
+                document.getElementById(
+                    "orderStatus"
+                );
+
+
+            const messageElement =
+                document.getElementById(
+                    "orderMessage"
+                );
+
+
+            // Check order ID
+            if (!orderId) {
+
+                queueElement.innerText =
+                    "Not Available";
+
+                statusElement.innerText =
+                    "Unknown";
+
+                messageElement.innerText =
+                    "No active order found.";
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "http://localhost:3000/api/orders/"
+                        + orderId
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Order not found"
+                    );
+
+                }
+
+
+                const order =
+                    await response.json();
+
+
+                // Display queue number
+                queueElement.innerText =
+                    "#" + order.queueNumber;
+
+
+                // Display status
+                statusElement.innerText =
+                    order.status;
+
+
+                // Display message
+                messageElement.innerText =
+                    "Please wait while your order is being prepared.";
+
+
+            } catch (error) {
+
+                console.log(error);
+
+
+                queueElement.innerText =
+                    "Error";
+
+                statusElement.innerText =
+                    "Unavailable";
+
+                messageElement.innerText =
+                    "Could not load order details.";
+
+            }
+
+        }
+
+
+        // Load order when page opens
+        loadOrder();
+
+    </script>
+
+</body>
+
+</html>

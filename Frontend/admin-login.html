@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login - Campus Canteen</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🍔 Campus Canteen
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="login.html">
+                Student Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Admin Login -->
+
+    <section class="menu-page">
+
+        <h1>Admin Login 🔐</h1>
+
+        <p class="menu-subtitle">
+            Campus Canteen Management
+        </p>
+
+
+        <div class="auth-container">
+
+            <form id="adminLoginForm">
+
+
+                <div class="form-group">
+
+                    <label for="adminEmail">
+                        Admin Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="adminEmail"
+                        placeholder="Enter admin email"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="adminPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Enter admin password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    Login as Admin
+
+                </button>
+
+            </form>
+
+
+            <p>
+
+                <a href="index.html">
+                    ← Back to Home
+                </a>
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        document
+            .getElementById("adminLoginForm")
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+
+                    alert(
+                        "Admin authentication will be connected later."
+                    );
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

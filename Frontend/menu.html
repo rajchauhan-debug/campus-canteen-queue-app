@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Menu - Campus Canteen</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🍔 Campus Canteen
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="menu.html">
+                Menu
+            </a>
+
+            <a href="cart.html">
+                Cart 🛒
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Menu Section -->
+
+    <section class="menu-page">
+
+        <h1>
+            Canteen Menu
+        </h1>
+
+        <p class="menu-subtitle">
+            Choose your favourite food
+        </p>
+
+
+        <div class="food-container">
+
+
+            <!-- Burger -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🍔
+                </div>
+
+                <h3>
+                    Classic Burger
+                </h3>
+
+                <p>
+                    ₹60
+                </p>
+
+                <button
+                    onclick="addToCart('Classic Burger', 60)">
+
+                    Add to Cart
+
+                </button>
+
+            </div>
+
+
+            <!-- Sandwich -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🥪
+                </div>
+
+                <h3>
+                    Veg Sandwich
+                </h3>
+
+                <p>
+                    ₹40
+                </p>
+
+                <button
+                    onclick="addToCart('Veg Sandwich', 40)">
+
+                    Add to Cart
+
+                </button>
+
+            </div>
+
+
+            <!-- Noodles -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🍜
+                </div>
+
+                <h3>
+                    Veg Noodles
+                </h3>
+
+                <p>
+                    ₹50
+                </p>
+
+                <button
+                    onclick="addToCart('Veg Noodles', 50)">
+
+                    Add to Cart
+
+                </button>
+
+            </div>
+
+
+            <!-- Cold Coffee -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    ☕
+                </div>
+
+                <h3>
+                    Cold Coffee
+                </h3>
+
+                <p>
+                    ₹40
+                </p>
+
+                <button
+                    onclick="addToCart('Cold Coffee', 40)">
+
+                    Add to Cart
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Cart Button -->
+
+        <div class="cart-button">
+
+            <button
+                class="primary-btn"
+                onclick="goToCart()">
+
+                Go to Cart 🛒
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
