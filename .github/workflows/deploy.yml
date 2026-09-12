@@ -7,11 +7,9 @@ on:
 
 jobs:
   build-and-deploy:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -32,5 +30,40 @@ jobs:
         working-directory: Backend
         run: docker build -t campus-canteen-backend .
 
-      - name: Deployment Complete
-        run: echo "Build and test completed successfully!"
+      - name: Deploy to EC2 #1
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST_1 }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/campus-canteen-queue-app
+            git pull origin main
+            cd Backend
+            sudo docker build -t campus-canteen-backend .
+            sudo docker stop campus-canteen-backend || true
+            sudo docker rm campus-canteen-backend || true
+            sudo docker run -d \
+              --name campus-canteen-backend \
+              --env-file .env \
+              -p 3000:3000 \
+              campus-canteen-backend
+
+      - name: Deploy to EC2 #2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST_2 }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/campus-canteen-queue-app
+            git pull origin main
+            cd Backend
+            sudo docker build -t campus-canteen-backend .
+            sudo docker stop campus-canteen-backend || true
+            sudo docker rm campus-canteen-backend || true
+            sudo docker run -d \
+              --name campus-canteen-backend \
+              --env-file .env \
+              -p 3000:3000 \
+              campus-canteen-backend
