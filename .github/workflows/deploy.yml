@@ -41,8 +41,9 @@ jobs:
             git pull origin main
             cd Backend
             sudo docker build -t campus-canteen-backend .
-            sudo docker stop campus-canteen-backend || true
-            sudo docker rm campus-canteen-backend || true
+            sudo docker ps -q --filter "publish=3000" | xargs -r sudo docker stop
+            sudo docker ps -aq --filter "publish=3000" | xargs -r sudo docker rm
+            sudo docker rm -f campus-canteen-backend || true
             sudo docker run -d \
               --name campus-canteen-backend \
               --env-file .env \
@@ -60,8 +61,9 @@ jobs:
             git pull origin main
             cd Backend
             sudo docker build -t campus-canteen-backend .
-            sudo docker stop campus-canteen-backend || true
-            sudo docker rm campus-canteen-backend || true
+            sudo docker ps -q --filter "publish=3000" | xargs -r sudo docker stop
+            sudo docker ps -aq --filter "publish=3000" | xargs -r sudo docker rm
+            sudo docker rm -f campus-canteen-backend || true
             sudo docker run -d \
               --name campus-canteen-backend \
               --env-file .env \
