@@ -15,7 +15,10 @@ const PORT = process.env.PORT || 3000;
 // ================= MIDDLEWARE =================
 
 app.use(cors({
-    origin: "http://127.0.0.1:5500"
+    origin: [
+        "http://127.0.0.1:5500",
+        "http://campus-canteen-raj-2026.s3-website.ap-south-1.amazonaws.com"
+    ]
 }));
 
 app.use(express.json());
