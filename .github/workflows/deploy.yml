@@ -46,6 +46,7 @@ jobs:
             sudo docker rm -f campus-canteen-backend || true
             sudo docker run -d \
               --name campus-canteen-backend \
+              --restart unless-stopped \
               --env-file .env \
               -p 3000:3000 \
               campus-canteen-backend
@@ -66,6 +67,7 @@ jobs:
             sudo docker rm -f campus-canteen-backend || true
             sudo docker run -d \
               --name campus-canteen-backend \
+              --restart unless-stopped \
               --env-file .env \
               -p 3000:3000 \
               campus-canteen-backend
