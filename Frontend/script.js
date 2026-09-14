@@ -220,7 +220,7 @@ async function placeOrder() {
         // Send order to backend
         const response =
             await fetch(
-                "http://campus-canteen-alb-1373901949.ap-south-1.elb.amazonaws.com/api/orders",
+                "http://campus-canteen-alb-271072627.ap-south-1.elb.amazonaws.com",
                 {
 
                     method: "POST",
